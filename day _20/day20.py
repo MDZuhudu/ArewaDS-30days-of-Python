@@ -83,3 +83,31 @@ for breed in breed_info.values():
     frequency_table[breed] += 1
 
 print(frequency_table)
+
+#3
+from collections import defaultdict
+frequency_table = defaultdict(int)
+breed_info = {}
+for breed in cat_breeds:
+    breed_info[breed['name']] = breed['origin']
+for breed in breed_info.values():
+    frequency_table[breed] += 1
+
+print(frequency_table)
+
+
+#UCI is one of the most common places to get data sets for data science and machine learning. Read the content of UCL (https://archive.ics.uci.edu/ml/datasets.php). Without additional libraries it will be difficult, so you may try it with BeautifulSoup4
+
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://archive.ics.uci.edu/ml/datasets.php'
+response = requests.get(url)
+html_content = response.content
+soup = BeautifulSoup(html_content, 'html.parser')
+table = soup.find('table', {'border': '1'})
+rows = table.find_all('tr')[1:]
+for row in rows:
+    cells = row.find_all('td')
+    name = cells[0].text.strip()
+    print(f'{name}')
